@@ -3,152 +3,350 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pluripotent Foundation — CMUS Online Mentorship</title>
-  <meta name="description" content="The Pluripotent Foundation runs CMUS, an online mentorship program connecting students in remote and underserved areas with experienced mentors, anytime, anywhere." />
+  <title>Pluripotent Foundation — Opening doors for students in remote communities</title>
+  <meta name="description" content="The Pluripotent Foundation connects students from remote and underserved communities in Nepal with experienced professionals around the world through online mentorship." />
+  <meta name="theme-color" content="#1a0d3d" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%236d28d9'/%3E%3Ccircle cx='11' cy='20' r='4' fill='%23fbbf24'/%3E%3Ccircle cx='21' cy='11' r='4' fill='%23fff'/%3E%3Cpath d='M11 20 21 11' stroke='%23fff' stroke-width='2'/%3E%3C/svg%3E" />
+  <!-- Runs before first paint so the saved theme never flashes. -->
+  <script>
+    (function () {
+      var root = document.documentElement, saved = null;
+      root.classList.add('js');
+      try { saved = localStorage.getItem('pf-theme'); } catch (e) {}
+      root.dataset.theme = saved === 'light' || saved === 'dark' ? saved
+        : matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    })();
+  </script>
+  <link rel="preload" as="image" href="assets/hero.jpg" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
   <header class="site-header" id="top">
     <div class="container header-inner">
       <a class="brand" href="#top">
         <span class="brand-mark">PF</span>
         <span class="brand-text">
           <strong>Pluripotent Foundation</strong>
-          <em>CMUS · Connecting Mentors &amp; Students</em>
+          <em>Mentorship for students in remote communities</em>
         </span>
       </a>
 
-      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
-        <span></span><span></span><span></span>
-      </button>
+      <div class="header-actions">
+        <nav class="nav" id="nav" aria-label="Primary">
+          <span class="nav-indicator" id="navIndicator" aria-hidden="true"></span>
+          <a href="#about">About</a>
+          <a href="#work">Our Work</a>
+          <a href="#impact">Impact</a>
+          <a href="#team">Our Team</a>
+          <a href="#mentors">Mentors</a>
+          <a href="#reports">Reports</a>
+          <a href="#get-involved">Get Involved</a>
+          <a href="#donate" class="btn btn-accent nav-donate">Donate</a>
+        </nav>
 
-      <nav class="nav" id="nav">
-        <a href="#about">About</a>
-        <a href="#vision">Vision</a>
-        <a href="#team">Team</a>
-        <a href="#what-we-do">What We Do</a>
-        <a href="#mentors">Mentors &amp; Mentees</a>
-        <a href="#reports">Reports</a>
-        <a href="#contact">Contact</a>
-        <a href="#donate" class="btn btn-accent nav-donate">Donate</a>
-      </nav>
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch color theme">
+          <svg class="icon icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M4.2 4.2 6 6M18 18l1.8 1.8M2 12h2.5M19.5 12H22M4.2 19.8 6 18M18 6l1.8-1.8"/></svg>
+          <svg class="icon icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        </button>
+
+        <button class="nav-toggle" id="navToggle" type="button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
     </div>
   </header>
 
-  <main>
+  <main id="main">
     <!-- HERO -->
-    <section class="hero">
+    <section class="hero" id="hero">
+      <img class="hero-photo" src="assets/hero.jpg" alt="Students in school uniform walking with their teacher along a village path below snow-capped Himalayan peaks, with images of the careers they could pursue in the sky around them." width="1408" height="768" fetchpriority="high" />
       <div class="container hero-inner">
-        <p class="eyebrow reveal">Online Mentorship Program</p>
-        <h1 class="reveal">Quality mentorship for every student, anywhere.</h1>
+        <p class="eyebrow reveal">The Pluripotent Foundation</p>
+        <h1 class="reveal">Geography should not limit a child&rsquo;s <em>potential.</em></h1>
         <p class="hero-lede reveal">
-          CMUS connects students from remote and underserved areas with experienced
-          mentors online — guiding them toward the right career path and a meaningful life.
+          We connect students from remote and underserved communities with experienced
+          professionals around the world, guiding them toward the right career path and a
+          meaningful life.
         </p>
         <div class="hero-cta reveal">
-          <a href="#donate" class="btn btn-accent btn-lg">Support Us</a>
-          <a href="#about" class="btn btn-ghost btn-lg">Learn more</a>
+          <a href="#get-involved" class="btn btn-accent btn-lg">Get involved</a>
+          <a href="#impact" class="btn btn-outline-light btn-lg">See our impact</a>
         </div>
+        <p class="hero-team reveal">
+          <span class="hero-team-static">Our mentors include doctors, engineers, teachers, lawyers, and government officers.</span>
+          <span class="hero-team-anim" aria-hidden="true">Our mentors include
+            <span class="rotator" id="rotator">
+              <span class="is-active">doctors</span>
+              <span>engineers</span>
+              <span>teachers</span>
+              <span>lawyers</span>
+              <span>government officers</span>
+            </span>
+          </span>
+        </p>
+      </div>
+    </section>
+
+    <!-- 2025 AT A GLANCE. Update data-count and the text together. -->
+    <section class="glance" aria-labelledby="glanceTitle">
+      <div class="container">
+        <div class="stats reveal" id="stats">
+          <h2 class="visually-hidden" id="glanceTitle">2025 at a glance</h2>
+          <div class="stat">
+            <span class="stat-num" data-count="68">68</span>
+            <span class="stat-label">Mentors in our network</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num" data-count="27">27</span>
+            <span class="stat-label">Mentees from remote districts of Nepal</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num" data-count="45">45</span>
+            <span class="stat-label">Formal mentorship sessions</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num" data-count="6">6</span>
+            <span class="stat-label">Countries with mentors abroad</span>
+          </div>
+        </div>
+        <p class="stats-note">2025 figures, from our <a href="#reports">Annual Report</a>.</p>
       </div>
     </section>
 
     <!-- ABOUT -->
     <section id="about" class="section">
       <div class="container">
-        <h2 class="section-title reveal">About CMUS</h2>
-        <p class="section-lede reveal">
-          The CMUS program was established to ensure that students hailing from remote or
-          underserved areas receive essential guidance from experienced mentors, regardless
-          of their location. By leveraging online platforms like Zoom, we ensure that
-          meaningful learning, career guidance, and impactful mentorship can happen anytime,
-          anywhere.
-        </p>
-      </div>
-    </section>
-
-    <!-- VISION / MISSION / VALUES -->
-    <section id="vision" class="section section-alt">
-      <div class="container">
-        <h2 class="section-title reveal">Our Purpose</h2>
-        <div class="cards cards-3">
-          <article class="card reveal">
-            <div class="card-icon">🌍</div>
-            <h3>Vision</h3>
+        <div class="about-grid">
+          <h2 class="section-title reveal">About the Foundation</h2>
+          <p class="about-text reveal">
+            The Pluripotent Foundation exists so that every student has access to quality
+            mentorship, no matter where they live. Our team of volunteer professionals
+            bridges the gap between students in underserved communities and people who have
+            walked the paths those students dream of.
+          </p>
+        </div>
+        <div class="purpose-grid">
+          <article class="card spot reveal">
+            <div class="card-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+            <h3>Our Vision</h3>
             <p>Every student should have access to quality mentorship, no matter where they live.</p>
           </article>
-          <article class="card reveal">
-            <div class="card-icon">🎯</div>
-            <h3>Mission</h3>
+          <article class="card spot reveal">
+            <div class="card-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div>
+            <h3>Our Mission</h3>
             <p>To connect students with mentors online, guiding them toward the right career path and a meaningful life.</p>
           </article>
-          <article class="card reveal">
-            <div class="card-icon">💜</div>
-            <h3>Values</h3>
+          <article class="card card-values spot reveal">
+            <div class="card-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+            <h3>Our Values</h3>
             <ul class="values-list">
-              <li><strong>Motivation</strong> — Encouraging students to do their best.</li>
-              <li><strong>Integrity</strong> — Being honest and transparent in what we do.</li>
-              <li><strong>Innovation</strong> — Using new and creative ways to mentor.</li>
+              <li><strong>Motivation</strong> Encouraging students to do their best.</li>
+              <li><strong>Integrity</strong> Being honest and transparent in what we do.</li>
+              <li><strong>Innovation</strong> Using new and creative ways to mentor.</li>
             </ul>
           </article>
         </div>
       </div>
     </section>
 
-    <!-- TEAM -->
-    <section id="team" class="section">
+    <!-- OUR WORK -->
+    <section id="work" class="section section-alt">
+      <div class="container split">
+        <div class="split-intro">
+          <p class="kicker reveal">What we do</p>
+          <h2 class="section-title reveal">Our Work</h2>
+          <p class="section-lede reveal">
+            We ensure that students from remote or underserved areas receive guidance from
+            experienced mentors, regardless of their location. Through online platforms like Zoom, meaningful learning, career
+            guidance, and mentorship can happen anytime, anywhere.
+          </p>
+        </div>
+        <ol class="program-list">
+          <li class="program spot reveal">
+            <div class="card-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+            <div>
+              <h3>Personal Mentorship</h3>
+              <p>Regular virtual, one-to-one and group interactions that help students identify and grow their talents.</p>
+            </div>
+          </li>
+          <li class="program spot reveal">
+            <div class="card-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.65 4.65 0 0 1 8.91 14"/></svg></div>
+            <div>
+              <h3>Engaging Learning</h3>
+              <p>Debates, quizzes, and mock tests that make learning active, measurable, and fun.</p>
+            </div>
+          </li>
+          <li class="program spot reveal">
+            <div class="card-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 20h10"/><path d="M10 20c5.5-2.5.8-6.4 3-10"/><path d="M9.5 9.4c1.1.8 1.8 2.2 2.3 3.7-2 .4-3.5.4-4.8-.3-1.2-.6-2.3-1.9-3-4.2 2.8-.5 4.4 0 5.5.8z"/><path d="M14.1 6a7 7 0 0 0-1.1 4c1.9-.1 3.3-.6 4.3-1.4 1-1 1.6-2.3 1.7-4.6-2.7.1-4 1-4.9 2z"/></svg></div>
+            <div>
+              <h3>Life Skills</h3>
+              <p>A strong focus on communication, discipline, and confidence — beyond academics.</p>
+            </div>
+          </li>
+          <li class="program spot reveal">
+            <div class="card-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="12" rx="2"/><path d="M2 20h20"/></svg></div>
+            <div>
+              <h3>Digital Learning</h3>
+              <p>Zoom classes in Basic IT, Basic Mathematics, Loksewa (Public Service) preparation, and English speaking practice using ChatGPT.</p>
+            </div>
+          </li>
+          <li class="program spot reveal">
+            <div class="card-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="6"/><path d="M8.2 13 7 22l5-3 5 3-1.2-9"/></svg></div>
+            <div>
+              <h3>Mentor Training</h3>
+              <p>Training sessions that keep the quality of guidance high, attended by 15 mentors between January and August 2025.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
       <div class="container">
-        <h2 class="section-title reveal">Who We Are</h2>
-        <p class="section-lede reveal">
-          CMUS is run by a compassionate and dedicated team of professionals — including
+        <aside class="ahead reveal">
+          <p class="kicker">Looking ahead</p>
+          <h3>Two new initiatives</h3>
+          <p>
+            We are launching the <strong>Talent Search Examination</strong> and <strong>Super 30</strong>
+            to identify talented students and provide them with focused mentorship, academic
+            support, and financial assistance. We will also expand our digital learning programs
+            to reach more students.
+          </p>
+        </aside>
+      </div>
+    </section>
+
+    <!-- IMPACT -->
+    <section id="impact" class="section">
+      <div class="container">
+        <h2 class="section-title section-title-c reveal">Our Impact</h2>
+        <p class="section-lede section-lede-c reveal">
+          Our true success is reflected in the progress of our mentees. In 2025, several passed
+          their SEE (Class 10) exams and moved on to higher education with the support of their mentors.
+        </p>
+
+        <div class="outcomes">
+          <article class="outcome reveal">
+            <span class="outcome-big">4.0 GPA</span>
+            <p>A perfect result in the SEE exams, by a mentee now pursuing Science.</p>
+          </article>
+          <article class="outcome reveal">
+            <span class="outcome-big">Full scholarship</span>
+            <p>A BSc Nursing place at Karnali Academy of Health Sciences, Jumla, won by a mentee guided by one of our doctors.</p>
+          </article>
+          <article class="outcome reveal">
+            <span class="outcome-big">Technical careers</span>
+            <p>Mentees moving into technical education, with diplomas in Civil Engineering and Pharmacy.</p>
+          </article>
+        </div>
+
+        <div class="network reveal">
+          <div>
+            <h3>A global network of professionals</h3>
+            <p>
+              Our 68 mentors include 34 who joined in 2025. They work across health, engineering
+              and technology, education, law, and government, and 17 of them mentor from abroad.
+            </p>
+          </div>
+          <div>
+            <p class="network-label">Mentors abroad, by country</p>
+            <ul class="country-list">
+            <li><strong>USA</strong><span>7</span></li>
+            <li><strong>UK</strong><span>4</span></li>
+            <li><strong>Australia</strong><span>2</span></li>
+            <li><strong>UAE</strong><span>2</span></li>
+            <li><strong>Canada</strong><span>1</span></li>
+            <li><strong>Oman</strong><span>1</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Testimonials are from the 2025 Annual Report. Mentees are shown without names. -->
+        <div class="testimonials">
+          <figure class="testimonial reveal">
+            <blockquote>
+              &ldquo;My mentor was instrumental in boosting my confidence and transforming my
+              study habits. I feel much more prepared and less stressed before exams.&rdquo;
+            </blockquote>
+            <figcaption>Mentee, Grade 10, Nepal</figcaption>
+          </figure>
+          <figure class="testimonial reveal">
+            <blockquote>
+              &ldquo;I believe timely mentorship can transform a student&rsquo;s dreams into a
+              reality.&rdquo;
+            </blockquote>
+            <figcaption>Dr. Neeru Diyali (MBBS), Mentor, Chitwan</figcaption>
+          </figure>
+          <figure class="testimonial reveal">
+            <blockquote>
+              &ldquo;Because of this mentorship, I have become more confident and disciplined
+              in my daily routine.&rdquo;
+            </blockquote>
+            <figcaption>Mentee, Grade 11, Nepal</figcaption>
+          </figure>
+        </div>
+
+        <aside class="challenge reveal">
+          <h3>A challenge we faced</h3>
+          <p>
+            Our model relies on internet access and Zoom, and digital literacy was a real barrier
+            for students in remote districts. We responded by adding Basic IT Learning sessions,
+            so mentees learn to navigate the digital world and use modern educational tools.
+          </p>
+        </aside>
+      </div>
+    </section>
+
+    <!-- TEAM -->
+    <section id="team" class="section section-alt">
+      <div class="container">
+        <h2 class="section-title section-title-c reveal">Our Team</h2>
+        <p class="section-lede section-lede-c reveal">
+          Our work is led by a compassionate and dedicated team of professionals — including
           engineers, doctors, IT experts, government officers, and educators — who believe
           deeply in giving back to society by guiding the next generation.
         </p>
 
-        <div class="cards cards-team">
-          <article class="team-card reveal">
-            <img class="avatar-photo" src="assets/avatar-placeholder.svg" alt="Photo of Dr. Ramesh Sunar" />
+        <!-- Photos are in assets/team/. A card with no photo shows initials inside .avatar. -->
+        <div class="team-grid">
+          <article class="team-card spot reveal">
+            <div class="avatar"><img src="assets/team/ramesh-sunar.jpg" alt="Photo of Dr. Ramesh Sunar" loading="lazy" width="96" height="96" /></div>
             <h3>Dr. Ramesh Sunar, DMD</h3>
             <p class="role">President</p>
             <p class="detail">Dental Surgeon &amp; Entrepreneur</p>
           </article>
-
-          <article class="team-card reveal">
-            <img class="avatar-photo" src="assets/avatar-placeholder.svg" alt="Photo of Rajesh Baraili" />
+          <article class="team-card spot reveal">
+            <div class="avatar"><img src="assets/team/rajesh-baraili.jpg" alt="Photo of Rajesh Baraili" loading="lazy" width="96" height="96" /></div>
             <h3>Rajesh Baraili, MSc (Phy)</h3>
             <p class="role">Treasurer</p>
             <p class="detail">Lead Engineer, Bank of America</p>
           </article>
-
-          <article class="team-card reveal">
-            <img class="avatar-photo" src="assets/avatar-placeholder.svg" alt="Photo of Deepak Dewaly" />
+          <article class="team-card spot reveal">
+            <div class="avatar"><img src="assets/team/deepak-dewaly.jpg" alt="Photo of Deepak Dewaly" loading="lazy" width="96" height="96" /></div>
             <h3>Deepak Dewaly, MBA</h3>
             <p class="role">General Secretary</p>
             <p class="detail">Manager, CareSource</p>
           </article>
-
-          <article class="team-card reveal">
-            <img class="avatar-photo" src="assets/avatar-placeholder.svg" alt="Photo of Bidur BK" />
+          <article class="team-card spot reveal">
+            <div class="avatar"><img src="assets/team/bidur-bk.jpg" alt="Photo of Bidur BK" loading="lazy" width="96" height="96" /></div>
             <h3>Bidur BK, MSc(CS)</h3>
             <p class="role">Member</p>
             <p class="detail">Sr. Engineering Manager, PHIL Inc.</p>
           </article>
-
-          <article class="team-card reveal">
-            <img class="avatar-photo" src="assets/avatar-placeholder.svg" alt="Photo of Rajendra Senchuri" />
+          <article class="team-card spot reveal">
+            <div class="avatar" aria-hidden="true">RS</div>
             <h3>Rajendra Senchuri</h3>
             <p class="role">Member</p>
             <p class="detail">BloodBank Technologist, MedStar Good Samaritan Hospital, MD</p>
           </article>
-
-          <article class="team-card reveal">
-            <img class="avatar-photo" src="assets/avatar-placeholder.svg" alt="Photo of Karan Sirlwal" />
+          <article class="team-card spot reveal">
+            <div class="avatar"><img src="assets/team/karan-sirlwal.jpg" alt="Photo of Karan Sirlwal" loading="lazy" width="96" height="96" /></div>
             <h3>Karan Sirlwal</h3>
             <p class="role">Operation Team</p>
             <p class="detail">Nepal</p>
           </article>
-
-          <article class="team-card reveal">
-            <img class="avatar-photo" src="assets/avatar-placeholder.svg" alt="Photo of Birendra Biswakarma" />
+          <article class="team-card spot reveal">
+            <div class="avatar"><img src="assets/team/birendra-biswakarma.jpg" alt="Photo of Birendra Biswakarma" loading="lazy" width="96" height="96" /></div>
             <h3>Birendra Biswakarma</h3>
             <p class="role">Operation Team</p>
             <p class="detail">India</p>
@@ -157,208 +355,246 @@
       </div>
     </section>
 
-    <!-- WHAT WE DO -->
-    <section id="what-we-do" class="section section-alt">
-      <div class="container">
-        <h2 class="section-title reveal">What We Do</h2>
-        <p class="section-lede reveal">
-          We leverage digital connectivity to provide personal guidance to students through
-          one-to-one and group mentorship, seamlessly connecting students with mentors and
-          peers across the world.
-        </p>
-        <div class="cards cards-3">
-          <article class="card reveal">
-            <div class="card-icon">🤝</div>
-            <h3>Personal Mentorship</h3>
-            <p>Regular virtual, one-to-one and group interactions that help students identify and grow their talents.</p>
-          </article>
-          <article class="card reveal">
-            <div class="card-icon">🧠</div>
-            <h3>Engaging Learning</h3>
-            <p>Debates, quizzes, and mock tests that make learning active, measurable, and fun.</p>
-          </article>
-          <article class="card reveal">
-            <div class="card-icon">🌱</div>
-            <h3>Life Skills</h3>
-            <p>A strong focus on communication, discipline, and confidence — beyond academics.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- MENTORS & MENTEES -->
+    <!-- MENTORS: photos are in assets/mentors/. data-group drives the filter. -->
     <section id="mentors" class="section">
       <div class="container">
-        <h2 class="section-title reveal">Mentors &amp; Mentees</h2>
-        <p class="section-lede reveal">
-          Our mentors volunteer their time and expertise from across the world. Our mentees
-          come from remote and underserved communities — bright students ready to grow with
-          the right guidance.
+        <h2 class="section-title section-title-c reveal">Our Mentors</h2>
+        <p class="section-lede section-lede-c reveal">
+          Our mentors volunteer their time and expertise from across the world. Here are some
+          of the professionals from our 2025 mentor cohort.
         </p>
-
-        <!-- Impact stats -->
-        <div class="stats reveal">
-          <div class="stat">
-            <span class="stat-num">120+</span>
-            <span class="stat-label">Students Mentored</span>
-          </div>
-          <div class="stat">
-            <span class="stat-num">30+</span>
-            <span class="stat-label">Active Mentors</span>
-          </div>
-          <div class="stat">
-            <span class="stat-num">500+</span>
-            <span class="stat-label">Mentorship Sessions</span>
-          </div>
-          <div class="stat">
-            <span class="stat-num">5</span>
-            <span class="stat-label">Countries Reached</span>
-          </div>
+        <div class="filters reveal" id="mentorFilters" role="group" aria-label="Filter mentors by profession">
+          <button class="filter" type="button" data-filter="all" aria-pressed="true">All</button>
+          <button class="filter" type="button" data-filter="doctors" aria-pressed="false">Doctors</button>
+          <button class="filter" type="button" data-filter="engineers" aria-pressed="false">Engineers</button>
+          <button class="filter" type="button" data-filter="other" aria-pressed="false">Other professions</button>
         </div>
-        <p class="stats-note reveal">Figures shown are illustrative placeholders.</p>
-
-        <!-- Mentors gallery -->
-        <h3 class="subhead reveal">Our Mentors</h3>
-        <div class="cards gallery" id="mentorsGallery">
-          <article class="gallery-card reveal">
-            <img class="gallery-photo" src="assets/avatar-placeholder.svg" alt="Mentor placeholder photo" />
-            <span class="tag tag-mentor">Mentor</span>
+        <div class="mentor-grid" id="mentorGrid">
+          <article class="mentor-card" data-group="doctors">
+            <img src="assets/mentors/sujit-darnal.jpg" alt="" loading="lazy" width="112" height="112" />
+            <h3>Dr. Sujit Darnal</h3>
+            <p>Doctor, USA</p>
           </article>
-          <article class="gallery-card reveal">
-            <img class="gallery-photo" src="assets/avatar-placeholder.svg" alt="Mentor placeholder photo" />
-            <span class="tag tag-mentor">Mentor</span>
+          <article class="mentor-card" data-group="doctors">
+            <img src="assets/mentors/barsha-prakash.jpg" alt="" loading="lazy" width="112" height="112" />
+            <h3>Dr. Barsha Prakash</h3>
+            <p>Doctor</p>
           </article>
-          <article class="gallery-card reveal">
-            <img class="gallery-photo" src="assets/avatar-placeholder.svg" alt="Mentor placeholder photo" />
-            <span class="tag tag-mentor">Mentor</span>
+          <article class="mentor-card" data-group="doctors">
+            <img src="assets/mentors/gyanendra-nepali.jpg" alt="" loading="lazy" width="112" height="112" />
+            <h3>Dr. Gyanendra Nepali</h3>
+            <p>Doctor</p>
           </article>
-          <article class="gallery-card is-hidden">
-            <img class="gallery-photo" src="assets/avatar-placeholder.svg" alt="Mentor placeholder photo" />
-            <span class="tag tag-mentor">Mentor</span>
+          <article class="mentor-card" data-group="doctors">
+            <img src="assets/mentors/deu-bdr-bk.jpg" alt="" loading="lazy" width="112" height="112" />
+            <h3>Dr. Deu Bdr. BK</h3>
+            <p>Doctor</p>
           </article>
-          <article class="gallery-card is-hidden">
-            <img class="gallery-photo" src="assets/avatar-placeholder.svg" alt="Mentor placeholder photo" />
-            <span class="tag tag-mentor">Mentor</span>
+          <article class="mentor-card" data-group="doctors">
+            <img src="assets/mentors/arjun-bk.jpg" alt="" loading="lazy" width="112" height="112" />
+            <h3>Dr. Arjun BK</h3>
+            <p>Doctor</p>
           </article>
-          <article class="gallery-card is-hidden">
-            <img class="gallery-photo" src="assets/avatar-placeholder.svg" alt="Mentor placeholder photo" />
-            <span class="tag tag-mentor">Mentor</span>
+          <article class="mentor-card" data-group="doctors">
+            <img src="assets/mentors/bijoy-pariyar.jpg" alt="" loading="lazy" width="112" height="112" />
+            <h3>Dr. Bijoy Pariyar</h3>
+            <p>Doctor, USA</p>
           </article>
-          <article class="gallery-card is-hidden">
-            <img class="gallery-photo" src="assets/avatar-placeholder.svg" alt="Mentor placeholder photo" />
-            <span class="tag tag-mentor">Mentor</span>
+          <article class="mentor-card" data-group="doctors">
+            <img src="assets/mentors/mitu-sadashankar.jpg" alt="" loading="lazy" width="112" height="112" />
+            <h3>Dr. Mitu Sadashankar</h3>
+            <p>Doctor</p>
           </article>
-          <article class="gallery-card is-hidden">
-            <img class="gallery-photo" src="assets/avatar-placeholder.svg" alt="Mentor placeholder photo" />
-            <span class="tag tag-mentor">Mentor</span>
+          <article class="mentor-card" data-group="doctors">
+            <img src="assets/mentors/ramji-ram.jpg" alt="" loading="lazy" width="112" height="112" />
+            <h3>Dr. Ramji Ram</h3>
+            <p>Doctor</p>
           </article>
-          <article class="gallery-card is-hidden">
-            <img class="gallery-photo" src="assets/avatar-placeholder.svg" alt="Mentor placeholder photo" />
-            <span class="tag tag-mentor">Mentor</span>
+          <article class="mentor-card" data-group="doctors">
+            <img src="assets/mentors/ganesh-nepali.jpg" alt="" loading="lazy" width="112" height="112" />
+            <h3>Dr. Ganesh Nepali</h3>
+            <p>Doctor</p>
+          </article>
+          <article class="mentor-card" data-group="doctors">
+            <img src="assets/mentors/ashok-kr-mijhar.jpg" alt="" loading="lazy" width="112" height="112" />
+            <h3>Dr. Ashok Kr. Mijhar</h3>
+            <p>Doctor</p>
+          </article>
+          <article class="mentor-card" data-group="doctors">
+            <img src="assets/mentors/mohan-bk.jpg" alt="" loading="lazy" width="112" height="112" />
+            <h3>Dr. Mohan BK</h3>
+            <p>Doctor, Oman</p>
+          </article>
+          <article class="mentor-card" data-group="doctors">
+            <img src="assets/mentors/renusha-bisunke.jpg" alt="" loading="lazy" width="112" height="112" />
+            <h3>Dr. Renusha Bisunke</h3>
+            <p>Doctor</p>
+          </article>
+          <article class="mentor-card" data-group="doctors">
+            <img src="assets/mentors/padam-nepali.jpg" alt="" loading="lazy" width="112" height="112" />
+            <h3>Dr. Padam Nepali</h3>
+            <p>Doctor</p>
+          </article>
+          <article class="mentor-card" data-group="doctors">
+            <img src="assets/mentors/lakshmeswar-mohara.jpg" alt="" loading="lazy" width="112" height="112" />
+            <h3>Dr. Lakshmeswar Mohara</h3>
+            <p>Doctor</p>
+          </article>
+          <article class="mentor-card" data-group="doctors">
+            <img src="assets/mentors/dinesh-marik.jpg" alt="" loading="lazy" width="112" height="112" />
+            <h3>Dr. Dinesh Marik</h3>
+            <p>Doctor</p>
+          </article>
+          <article class="mentor-card" data-group="engineers">
+            <img src="assets/mentors/ashish-bk.jpg" alt="" loading="lazy" width="112" height="112" />
+            <h3>Ar. Ashish BK</h3>
+            <p>Engineering, Dubai</p>
+          </article>
+          <article class="mentor-card" data-group="engineers">
+            <img src="assets/mentors/juna-nepali.jpg" alt="" loading="lazy" width="112" height="112" />
+            <h3>Er. Juna Nepali</h3>
+            <p>Engineering</p>
+          </article>
+          <article class="mentor-card" data-group="engineers">
+            <img src="assets/mentors/nanda-sarki.jpg" alt="" loading="lazy" width="112" height="112" />
+            <h3>Er. Nanda Sarki</h3>
+            <p>Engineering</p>
+          </article>
+          <article class="mentor-card" data-group="engineers">
+            <img src="assets/mentors/dibarsh-gotame.jpg" alt="" loading="lazy" width="112" height="112" />
+            <h3>Er. Dibarsh Gotame</h3>
+            <p>Engineering</p>
+          </article>
+          <article class="mentor-card" data-group="engineers">
+            <img src="assets/mentors/santa-bdr-sarki.jpg" alt="" loading="lazy" width="112" height="112" />
+            <h3>Dr. Santa Bdr. Sarki</h3>
+            <p>Engineering</p>
+          </article>
+          <article class="mentor-card" data-group="other">
+            <img src="assets/mentors/khushbu-rizal.jpg" alt="" loading="lazy" width="112" height="112" />
+            <h3>Khushbu Rizal</h3>
+            <p>Manager, Robino &amp; Co., USA</p>
+          </article>
+          <article class="mentor-card" data-group="other">
+            <img src="assets/mentors/sumee-tamang.jpg" alt="" loading="lazy" width="112" height="112" />
+            <h3>Sumee Tamang</h3>
+            <p>Project Manager, Canada</p>
+          </article>
+          <article class="mentor-card" data-group="other">
+            <img src="assets/mentors/aarati-rashaily.jpg" alt="" loading="lazy" width="112" height="112" />
+            <h3>Aarati Rashaily</h3>
+            <p>MSc Agri (running), UK</p>
+          </article>
+          <article class="mentor-card" data-group="other">
+            <img src="assets/mentors/manisha-bishwokarma.jpg" alt="" loading="lazy" width="112" height="112" />
+            <h3>Manisha Bishwokarma</h3>
+            <p>Teacher</p>
+          </article>
+          <article class="mentor-card" data-group="other">
+            <img src="assets/mentors/tilak-sunar.jpg" alt="" loading="lazy" width="112" height="112" />
+            <h3>Tilak Sunar</h3>
+            <p>Section Officer, Foreign Affairs</p>
+          </article>
+          <article class="mentor-card" data-group="other">
+            <img src="assets/mentors/prem-gandharb.jpg" alt="" loading="lazy" width="112" height="112" />
+            <h3>Er. Prem Gandharb</h3>
+            <p>Inspector (Tech)</p>
+          </article>
+          <article class="mentor-card" data-group="other">
+            <img src="assets/mentors/basanta-mote.jpg" alt="" loading="lazy" width="112" height="112" />
+            <h3>Er. Basanta Mote</h3>
+            <p>IT Assistant, Nepal Bank</p>
+          </article>
+          <article class="mentor-card" data-group="other">
+            <img src="assets/mentors/milan-bishwakarma.jpg" alt="" loading="lazy" width="112" height="112" />
+            <h3>Milan Bishwakarma</h3>
+            <p>Journalist, Naya Patrika</p>
+          </article>
+          <article class="mentor-card" data-group="other">
+            <img src="assets/mentors/roshan-sunar.jpg" alt="" loading="lazy" width="112" height="112" />
+            <h3>Adv. Roshan Sunar</h3>
+            <p>Government Lawyer</p>
+          </article>
+          <article class="mentor-card" data-group="other">
+            <img src="assets/mentors/arun-tamang.jpg" alt="" loading="lazy" width="112" height="112" />
+            <h3>Adv. Arun Tamang</h3>
+            <p>Corporate Consultant</p>
+          </article>
+          <article class="mentor-card" data-group="other">
+            <img src="assets/mentors/bikash-gayak.jpg" alt="" loading="lazy" width="112" height="112" />
+            <h3>Bikash Gayak</h3>
+            <p>Technical Assistant, Agriculture</p>
+          </article>
+          <article class="mentor-card" data-group="other">
+            <img src="assets/mentors/sujit-bk.jpg" alt="" loading="lazy" width="112" height="112" />
+            <h3>Er. Sujit BK</h3>
+            <p>Engineering Instructor, 10+2 School, Parbat</p>
+          </article>
+          <article class="mentor-card" data-group="other">
+            <img src="assets/mentors/dil-bdr-ramtel.jpg" alt="" loading="lazy" width="112" height="112" />
+            <h3>Dil Bdr. Ramtel</h3>
+            <p>Program Officer (Education), NGO</p>
+          </article>
+          <article class="mentor-card" data-group="other">
+            <img src="assets/mentors/bishal-bishwokarma.jpg" alt="" loading="lazy" width="112" height="112" />
+            <h3>Bishal Bishwokarma</h3>
+            <p>Health Professional</p>
           </article>
         </div>
         <div class="show-more-wrap">
-          <button class="btn btn-ghost show-more" data-target="mentorsGallery" aria-expanded="false">Show more mentors</button>
+          <button class="btn btn-ghost" type="button" id="mentorMore" aria-expanded="false" hidden>Show all mentors</button>
         </div>
-
-        <!-- Mentees gallery -->
-        <h3 class="subhead reveal">Our Mentees</h3>
-        <div class="cards gallery" id="menteesGallery">
-          <article class="gallery-card reveal">
-            <img class="gallery-photo" src="assets/avatar-placeholder.svg" alt="Mentee placeholder photo" />
-            <span class="tag tag-mentee">Mentee</span>
-          </article>
-          <article class="gallery-card reveal">
-            <img class="gallery-photo" src="assets/avatar-placeholder.svg" alt="Mentee placeholder photo" />
-            <span class="tag tag-mentee">Mentee</span>
-          </article>
-          <article class="gallery-card reveal">
-            <img class="gallery-photo" src="assets/avatar-placeholder.svg" alt="Mentee placeholder photo" />
-            <span class="tag tag-mentee">Mentee</span>
-          </article>
-          <article class="gallery-card is-hidden">
-            <img class="gallery-photo" src="assets/avatar-placeholder.svg" alt="Mentee placeholder photo" />
-            <span class="tag tag-mentee">Mentee</span>
-          </article>
-          <article class="gallery-card is-hidden">
-            <img class="gallery-photo" src="assets/avatar-placeholder.svg" alt="Mentee placeholder photo" />
-            <span class="tag tag-mentee">Mentee</span>
-          </article>
-          <article class="gallery-card is-hidden">
-            <img class="gallery-photo" src="assets/avatar-placeholder.svg" alt="Mentee placeholder photo" />
-            <span class="tag tag-mentee">Mentee</span>
-          </article>
-          <article class="gallery-card is-hidden">
-            <img class="gallery-photo" src="assets/avatar-placeholder.svg" alt="Mentee placeholder photo" />
-            <span class="tag tag-mentee">Mentee</span>
-          </article>
-          <article class="gallery-card is-hidden">
-            <img class="gallery-photo" src="assets/avatar-placeholder.svg" alt="Mentee placeholder photo" />
-            <span class="tag tag-mentee">Mentee</span>
-          </article>
-          <article class="gallery-card is-hidden">
-            <img class="gallery-photo" src="assets/avatar-placeholder.svg" alt="Mentee placeholder photo" />
-            <span class="tag tag-mentee">Mentee</span>
-          </article>
-        </div>
-        <div class="show-more-wrap">
-          <button class="btn btn-ghost show-more" data-target="menteesGallery" aria-expanded="false">Show more mentees</button>
-        </div>
-
-        <!-- Testimonials -->
-        <div class="testimonials">
-          <figure class="testimonial reveal">
-            <blockquote>
-              &ldquo;My mentor helped me believe I could pursue engineering, even from my
-              small hometown. The weekly sessions changed how I see my future.&rdquo;
-            </blockquote>
-            <figcaption>
-              <img class="avatar-photo avatar-sm" src="assets/avatar-placeholder.svg" alt="" />
-              <span>Mentee, Grade 10</span>
-            </figcaption>
-          </figure>
-          <figure class="testimonial reveal">
-            <blockquote>
-              &ldquo;Mentoring with CMUS is the most rewarding hour of my week. Watching a
-              student grow in confidence is priceless.&rdquo;
-            </blockquote>
-            <figcaption>
-              <img class="avatar-photo avatar-sm" src="assets/avatar-placeholder.svg" alt="" />
-              <span>Volunteer Mentor</span>
-            </figcaption>
-          </figure>
-        </div>
-        <p class="stats-note reveal">Testimonials are placeholder copy.</p>
       </div>
     </section>
 
     <!-- REPORTS -->
-    <section id="reports" class="section">
-      <div class="container reports-inner reveal">
-        <div>
-          <h2 class="section-title">Our Impact</h2>
-          <p class="section-lede">
-            See the difference mentorship makes. Read the highlights, stories, and numbers
-            from our latest year of work.
-          </p>
+    <section id="reports" class="section section-tight">
+      <div class="container">
+        <div class="reports-inner reveal">
+          <div>
+            <h2 class="section-title">Annual Report 2025</h2>
+            <p class="section-lede">
+              Integrity means being honest and transparent in what we do. Read the highlights,
+              stories, and numbers from our latest year of work.
+            </p>
+          </div>
+          <a class="btn btn-accent btn-lg" href="assets/reports/pluripotent-foundation-annual-report-2025.pdf" target="_blank" rel="noopener">
+            Read the 2025 Annual Report
+          </a>
         </div>
-        <a class="btn btn-primary btn-lg" href="https://drive.google.com/file/d/1n9GJst__BN_SSgyBQiXwDEBX787KzHP6/view" target="_blank" rel="noopener">
-          Read the 2025 Annual Report
-        </a>
       </div>
     </section>
 
-    <!-- CONTACT -->
-    <section id="contact" class="section section-alt">
-      <div class="container contact-inner">
-        <h2 class="section-title reveal">Get Involved</h2>
-        <p class="section-lede reveal">
-          Want to mentor a student, partner with us, or support the mission? We would love to
-          hear from you.
+    <!-- GET INVOLVED -->
+    <section id="get-involved" class="section section-alt">
+      <div class="container">
+        <h2 class="section-title section-title-c reveal">Get Involved</h2>
+        <p class="section-lede section-lede-c reveal">
+          Your time, expertise, and support can illuminate the path for a deserving student.
         </p>
+        <div class="involve-grid">
+          <a class="card involve spot reveal" href="mailto:info@pluripotentfoundation.org?subject=Becoming%20a%20mentor">
+            <div class="card-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+            <h3>Become a mentor</h3>
+            <p>Share your experience with a student who needs guidance.</p>
+            <span class="involve-link">Email us &rarr;</span>
+          </a>
+          <a class="card involve spot reveal" href="mailto:info@pluripotentfoundation.org?subject=Partnership">
+            <div class="card-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg></div>
+            <h3>Partner with us</h3>
+            <p>Work with us to reach more students in underserved communities.</p>
+            <span class="involve-link">Email us &rarr;</span>
+          </a>
+          <a class="card involve spot reveal" href="#donate">
+            <div class="card-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-4.5-9-9a5 5 0 0 1 9-4 5 5 0 0 1 9 4c-2 4.5-9 9-9 9z"/><path d="M12 8v7M8.5 11.5h7"/></svg></div>
+            <h3>Support our work</h3>
+            <p>Help us reach more students with quality mentorship, anywhere.</p>
+            <span class="involve-link">Ways to give &rarr;</span>
+          </a>
+        </div>
         <div class="contact-actions reveal">
-          <a class="btn btn-primary btn-lg" href="mailto:info@pluripotentfoundation.org">info@pluripotentfoundation.org</a>
-          <a class="btn btn-ghost btn-lg" href="#donate">Support the mission</a>
+          <a class="btn btn-primary" href="mailto:info@pluripotentfoundation.org">info@pluripotentfoundation.org</a>
+          <button class="btn btn-ghost" type="button" id="copyEmail" data-email="info@pluripotentfoundation.org">Copy email</button>
         </div>
       </div>
     </section>
@@ -371,18 +607,20 @@
         <span class="brand-mark">PF</span>
         <div>
           <strong>Pluripotent Foundation</strong>
-          <p>Connecting Mentors &amp; Students (CMUS)</p>
+          <p>Mentorship for students in remote communities</p>
         </div>
       </div>
 
       <div class="footer-donate">
         <h3>Support our work</h3>
         <p>Your contribution helps us reach more students with quality mentorship, anywhere.</p>
-        <a class="btn btn-accent" href="#" aria-label="Donate (coming soon)">Donate</a>
+        <a class="btn btn-accent" href="#" data-soon="Online donations are coming soon. Please email info@pluripotentfoundation.org to give." aria-label="Donate (coming soon)">Donate</a>
       </div>
 
-      <div class="footer-social">
-        <h3>Follow us</h3>
+      <div class="footer-contact">
+        <h3>Contact</h3>
+        <p><a href="mailto:info@pluripotentfoundation.org">info@pluripotentfoundation.org</a></p>
+        <!-- Social icons are hidden until real profile URLs exist. To restore, uncomment and set each href:
         <div class="social-icons">
           <a href="#" aria-label="Facebook">
             <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M13.5 21v-7h2.4l.4-3h-2.8V9.1c0-.9.3-1.5 1.6-1.5H16V5c-.3 0-1.2-.1-2.2-.1-2.2 0-3.8 1.4-3.8 3.9V11H7.5v3H10v7h3.5z"/></svg>
@@ -394,13 +632,18 @@
             <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M6.9 8.5H4.3V19h2.6V8.5zM5.6 4.3a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM19.7 19v-5.8c0-3.1-1.7-4.5-3.9-4.5-1.8 0-2.6 1-3 1.7V8.5H10.1c0 .7 0 10.5 0 10.5h2.6v-5.9c0-.3 0-.6.1-.8.3-.6.8-1.2 1.7-1.2 1.2 0 1.7.9 1.7 2.3V19h2.5z"/></svg>
           </a>
         </div>
+        -->
       </div>
     </div>
     <div class="container footer-bottom">
       <p>&copy; <span id="year"></span> Pluripotent Foundation. All rights reserved.</p>
-      <p class="footer-note">Donate &amp; social links are placeholders — payment and profile URLs coming soon.</p>
     </div>
   </footer>
+
+  <a class="to-top" id="toTop" href="#top" aria-label="Back to top">
+    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+  </a>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script src="script.js"></script>
 </body>
